@@ -1,3 +1,4 @@
 requests
 google-cloud-storage
+apache-beam[gcp]
 
