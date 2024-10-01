@@ -5,7 +5,7 @@ from apache_beam.io.gcp.internal.clients import bigquery
 import datetime
 import os  # Import os module to handle file paths
 
-import apache_beam.io.fileio as fo
+import apache_beam.io.fileio as fo  # had to use this as normal import was giving error
 
 class ParseJson(beam.DoFn):
     def process(self, element):

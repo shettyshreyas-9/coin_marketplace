@@ -3,6 +3,16 @@ from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 import time
 from google.cloud import storage
+import os
+
+
+try: 
+    SERVICE_ACCOUNT_KEY_PATH = '/opt/airflow/cred/gcp-test.json'
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = SERVICE_ACCOUNT_KEY_PATH
+    print(f"Service account key path set to: {SERVICE_ACCOUNT_KEY_PATH}")
+except Exception as e:
+    print(f"An error occurred while setting the service account key path: {e}")
+
 
 # CoinMarketCap API details
 url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
