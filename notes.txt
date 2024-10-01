@@ -1,0 +1,9 @@
+1. while creating the event triggered (file added to storage) cloud function for triggering dataflow job, 
+-pub/sub publisher permission is required for service-{project_number}@gs-project-accounts.iam.gserviceaccount.com
+- Eventarc Event Receiver permission is required for {project_number}-compute@developer.gserviceaccount.com
+
+This is for storage bucket to publish message upon addition of file & compute service account to receive it.
+
+2. The code for df job/template has the input file in certain format, make sure to follow it while testing.
+
+3. cf_trig_df_coin is the cloud function which triggers the df job when file is uploaded in cmark folder of the bucket.
