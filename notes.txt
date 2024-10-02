@@ -7,3 +7,8 @@ This is for storage bucket to publish message upon addition of file & compute se
 2. The code for df job/template has the input file in certain format, make sure to follow it while testing.
 
 3. cf_trig_df_coin is the cloud function which triggers the df job when file is uploaded in cmark folder of the bucket.
+
+4. For invoking a cloud function using airflow, had to create a connection using service account key of the compute-developer(which has access to cloud functions) , ace-inter did not work.
+Keep checking for latest attributes of gcloud airflow, e.g. CloudFunctionExecuteFunctionOperator replaced by CloudFunctionInvokeFunctionOperator.
+5. The submissions-3 which is normal CF triggered by http request works but the event driven one which depends on file being uploaded prob. dosent work due to correct schema of input_data.
+

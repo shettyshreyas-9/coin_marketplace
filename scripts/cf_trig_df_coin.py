@@ -1,4 +1,4 @@
-# requiremnts
+# requiremnts.txt
 # google-api-python-client
 # google-auth
 # google-cloud-storage
