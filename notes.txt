@@ -8,7 +8,24 @@ This is for storage bucket to publish message upon addition of file & compute se
 
 3. cf_trig_df_coin is the cloud function which triggers the df job when file is uploaded in cmark folder of the bucket.
 
-4. For invoking a cloud function using airflow, had to create a connection using service account key of the compute-developer(which has access to cloud functions) , ace-inter did not work.
+4. For invoking a cloud function using airflow, had to create a connection (google_cloud_default) using service account key of the compute-developer(which has access to cloud functions) , ace-inter did not work.
 Keep checking for latest attributes of gcloud airflow, e.g. CloudFunctionExecuteFunctionOperator replaced by CloudFunctionInvokeFunctionOperator.
+
 5. The submissions-3 which is normal CF triggered by http request works but the event driven one which depends on file being uploaded prob. dosent work due to correct schema of input_data.
+
+6. The dags af_trig_df_dag_1 & af_trig_df_dag_2 use the airflow operator sensors to check 'update in object' & 'presence of file with prefix' respectively.
+For 'update in object' in object the issue lies that it is object specific generally file and not folder hence is not sufficient to capture addition of any new file to the folder.
+While the 'presence of file with prefix' will trigger just on presence of the file and fails our use case as well.
+
+8. To counter shortcomings of the point 6,
+Best way to create topic & notification for GCS for when file is uploaded 
+ a. Create topic manually using console or using : gcloud storage buckets notifications create gs://sn_insights_test --topic=gcs-file-upd
+ b. create a subscription keeping setting pull for that topic.
+ c. Notification cannot be created using console so use for setting notification for specific folder in bucket : gcloud storage buckets notifications create gs://sn_insights_test --topic=gcs-file-upd --event-types=OBJECT_FINALIZE --object-prefix=cmark/
+ d. list and check notifications for that bucket:  gcloud storage buckets notifications list gs://sn_insights_test
+ e. delete all notifications:  gcloud storage buckets notifications delete gs://sn_insights_test
+ f. delete selective notification:   gcloud storage buckets notifications delete gs://sn_insights_test --id='notification ID'
+
+
+
 
