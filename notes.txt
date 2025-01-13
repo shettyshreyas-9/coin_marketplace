@@ -27,5 +27,7 @@ Best way to create topic & notification for GCS for when file is uploaded
  f. delete selective notification:   gcloud storage buckets notifications delete gs://sn_insights_test --id='notification ID'
 
 
+9. Create a conn_id= google_cloud_default , select Google Cloud , project id, add the json key & save connection. 
+
 
 
