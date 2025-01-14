@@ -66,3 +66,19 @@ jobs:
           df -h
           echo "Successfully logged in to VM."
 
+    # Step 3: Verify successful connection and continue if successful
+    - name: Verify Connection and Run Docker Operations
+      if: steps.ssh_connection.outcome == 'success'
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.VM_EXTERNAL_IP }}
+        username: ${{ secrets.VM_USERNAME }}
+        password: ${{ secrets.SSH_PRIVATE_KEY }} # Or private key if using SSH key authentication
+        port: 22
+        script: |
+          echo "Pulling Docker image..."
+          docker pull europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
+          echo "Running Docker container..."
+          docker run -it --name group-rel -v /var/run/docker.sock:/var/run/docker.sock --user root europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
+
+
