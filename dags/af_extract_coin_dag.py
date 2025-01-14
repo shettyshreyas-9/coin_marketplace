@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 
 default_args= {
-    "owner":'SS_airflow',
+    "owner":'airflow_SS',
     'start_date': days_ago(1),
     'catchup': False,
     'retries':1,
