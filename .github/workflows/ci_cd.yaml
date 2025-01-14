@@ -37,3 +37,29 @@ jobs:
 
     - name: Test
       run: echo "authenticating done"
+
+
+  run_on_vm:
+    # Define a separate job for VM-related tasks
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Authenticate with GCP
+    - name: Authenticate with GCP
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+    # Step 2: SSH into VM and execute commands
+    - name: Run on GCP VM
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.VM_EXTERNAL_IP }}
+        username: ${{ secrets.VM_USERNAME }}
+        password: ${{ secrets.VM_PASSWORD }} # Or private key if using SSH key authentication
+        port: 8080
+        script: |
+          docker pull europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
+          docker run -it --name group-rel -v /var/run/docker.sock:/var/run/docker.sock --user root europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
+
