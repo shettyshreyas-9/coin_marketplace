@@ -58,7 +58,7 @@ jobs:
         host: ${{ secrets.VM_EXTERNAL_IP }}
         username: ${{ secrets.VM_USERNAME }}
         password: ${{ secrets.VM_PASSWORD }} # Or private key if using SSH key authentication
-        port: 8080
+        port: 22
         script: |
           docker pull europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
           docker run -it --name group-rel -v /var/run/docker.sock:/var/run/docker.sock --user root europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
