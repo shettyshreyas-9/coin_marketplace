@@ -21,7 +21,7 @@ default_args = {
 
 # Create the DAG
 with DAG(
-    dag_id='trigger_cloud_function_dag',
+    dag_id='af_trigger_cloud_function_dag',
     default_args=default_args,
     description='A simple DAG to trigger a Cloud Function',
     schedule_interval=None,  # Set a schedule or trigger manually
