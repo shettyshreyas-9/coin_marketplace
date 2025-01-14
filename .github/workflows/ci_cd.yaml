@@ -17,5 +17,23 @@ jobs:
       with:
         credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
+
+    # Step 3: Configure Docker for GCP Artifact Registry
+    - name: Configure Docker
+      run: gcloud auth configure-docker europe-docker.pkg.dev
+
+    # Step 4: Build Docker Image
+    - name: Build Docker Image
+      run: docker build -t garp1:latest .
+
+    # Step 5: Tag Docker Image
+    - name: Tag Docker Image
+      run: docker tag garp1:latest europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
+
+    # Step 6: Push Docker Image to Artifact Registry
+    - name: Push Docker Image
+      run: docker push europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
+
+
     - name: Test
       run: echo "authenticating done"
