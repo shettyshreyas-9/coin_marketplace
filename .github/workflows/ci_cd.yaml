@@ -57,7 +57,7 @@ jobs:
       with:
         host: ${{ secrets.VM_EXTERNAL_IP }}
         username: ${{ secrets.VM_USERNAME }}
-        password: ${{ secrets.VM_PASSWORD }} # Or private key if using SSH key authentication
+        key: ${{ secrets.SSH_PRIVATE_KEY }} # Or private key if using SSH key authentication
         port: 22
         script: |
           docker pull europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
