@@ -79,6 +79,7 @@ jobs:
           echo "Pulling Docker image..."
           docker pull europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
           echo "Running Docker container..."
-          docker run -it --name group-rel -v /var/run/docker.sock:/var/run/docker.sock --user root europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
+          docker run -d --name group-rel -v /var/run/docker.sock:/var/run/docker.sock --user root europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
+
 
 
