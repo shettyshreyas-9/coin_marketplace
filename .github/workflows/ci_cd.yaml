@@ -51,15 +51,18 @@ jobs:
       with:
         credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-    # Step 2: SSH into VM and execute commands
-    - name: Run on GCP VM
+    # Step 2: SSH into VM and check logs for success
+    - name: SSH to VM and Check Connection
       uses: appleboy/ssh-action@v0.1.7
+      id: ssh_connection
       with:
         host: ${{ secrets.VM_EXTERNAL_IP }}
         username: ${{ secrets.VM_USERNAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }} # Or private key if using SSH key authentication
+        password: ${{ secrets.VM_PASSWORD }} # Or private key if using SSH key authentication
         port: 22
         script: |
-          docker pull europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
-          docker run -it --name group-rel -v /var/run/docker.sock:/var/run/docker.sock --user root europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
+          echo "Checking VM connection..."
+          uname -a
+          df -h
+          echo "Successfully logged in to VM."
 
