@@ -56,9 +56,9 @@ jobs:
       uses: appleboy/ssh-action@v0.1.7
       id: ssh_connection
       with:
-        host:  '34.79.243.65' #${{ secrets.VM_EXTERNAL_IP }}
-        username: 'lcladmin'
-        password: 'test123' # Or private key if using SSH key authentication
+        host: ${{ secrets.VM_EXTERNAL_IP }}
+        username: ${{ secrets.VM_USERNAME }}
+        key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
         port: 22
         script: |
           echo "Checking VM connection..."
