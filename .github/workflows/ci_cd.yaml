@@ -76,6 +76,10 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }} # Or private key if using SSH key authentication
         port: 22
         script: |
+          echo "clean up of containers"
+          docker rm -f $(docker ps -aq)
+          echo "clean up of images"
+          docker rmi -f $(docker images -q) 
           echo "Pulling Docker image..."
           docker pull europe-docker.pkg.dev/aceinternal-2ed449d3/group-mapping/garp1:latest
           echo "Running Docker container..."
